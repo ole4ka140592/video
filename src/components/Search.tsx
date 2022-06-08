@@ -1,19 +1,23 @@
 import React, {ChangeEvent, useState} from "react";
-import s from "./Search.module.css"
-import {usersAPI} from "../api/api";
+import s from "./Search.module.css";
+import {getMovies} from "../bll/moviesReducer";
+import {useDispatch} from "react-redux";
+
 
 export const Search = () => {
     const [title, setTitle] = useState("")
+    const dispatch = useDispatch()
 
     const inputTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     const searchMovie = () => {
-
-        console.log(title)
+        // moviesAPI.getMoviesTitle(title)
+        dispatch(getMovies(title))
         setTitle("")
     }
+
 
     return (
         <>

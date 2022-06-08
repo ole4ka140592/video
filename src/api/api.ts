@@ -1,20 +1,33 @@
 import axios from "axios";
-
+import {Search} from "../components/Search";
+import {Dispatch} from "redux";
 
 const instance = axios.create({
-    withCredentials: true,
-    baseURL: "http://www.omdbapi.com/?apikey=[yourkey]&",
-    headers: {
-        "API-KEY": "0ab1e7b3-e560-4134-9877-af2e3009657c"
-    }
+    baseURL: "http://www.omdbapi.com",
 })
 
-export const usersAPI = {
-    // getMovies() {
-    //     return instance.get()
-    //         .then(response => {
-    //             return response.data
-    //         })
-    // },
+const key = "2dbc2ac2"
 
+export const moviesAPI = {
+    getMoviesTitle(title: string) {
+        const query = `?apikey=${key}&s=${title}`
+        return instance.get(query)
+
+        // .then(({data}) => {
+        //     console.log(data)
+        //    const {Error, Search, Response} = data
+        //
+        //
+        //     return Response === "True" ? console.log(JSON.stringify(Search)) : console.log(JSON.stringify(Error))
+        // })
+
+    },
+}
+
+export type MoviesType = {
+    Title: '',
+    Year: '',
+    imdbID: '',
+    Type: '',
+    Poster: ''
 }
