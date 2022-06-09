@@ -2,6 +2,7 @@ import axios from "axios";
 import {Search} from "../components/Search";
 import {Dispatch} from "redux";
 
+
 const instance = axios.create({
     baseURL: "http://www.omdbapi.com",
 })
