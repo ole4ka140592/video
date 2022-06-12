@@ -1,6 +1,5 @@
 import axios from "axios";
-import {Search} from "../components/Search";
-import {Dispatch} from "redux";
+import {useDispatch} from "react-redux";
 
 
 const instance = axios.create({
@@ -17,9 +16,11 @@ export const moviesAPI = {
         // .then(({data}) => {
         //     console.log(data)
         //    const {Error, Search, Response} = data
+
+
+        //     // return Response === "True" ? console.log(JSON.stringify(Search)) : console.log(JSON.stringify(Error))
         //
-        //
-        //     return Response === "True" ? console.log(JSON.stringify(Search)) : console.log(JSON.stringify(Error))
+        //     return Response === "True" ? dispatch(moviesActions.setMovies(Search)) : console.log(JSON.stringify(Error))
         // })
 
     },
@@ -32,3 +33,9 @@ export type MoviesType = {
     Type: '',
     Poster: ''
 }
+
+// export type ResponseType = {
+//     Response: string;
+//     Search: Array<MoviesType>
+//     totalResults: string
+// }

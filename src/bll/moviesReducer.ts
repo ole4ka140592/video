@@ -1,13 +1,12 @@
 import {moviesAPI, MoviesType} from "../api/api";
 import {Dispatch} from "redux";
-import {ActionsType, AppDispatch, AppRootStateType} from "../store/store";
+import {AppThunk} from "../store/store";
 
 
 const moviesInitialState = {
-    Search: [] as MoviesType[],
     Response: "",
     totalResults: "",
-    Error: ""
+    Search: Array<MoviesType>
 }
 
 export type MoviesInitialStateType = typeof moviesInitialState
@@ -23,35 +22,28 @@ export const moviesReducer = (state: MoviesInitialStateType = moviesInitialState
     }
 }
 
-
-//actions
 export const moviesActions = {
     setMovies: (movies: MoviesType[]) => ({type: 'SET_MOVIES', payload: {movies}} as const),
+    setTotalResults: (totalResults: string) =>
+        ({type: 'SET_TOTAL_RESULT', payload: {totalResults}} as const),
+    setResponse: (response: string) => ({type: 'SET_RESPONSE', payload: {response}} as const),
 }
 
-//thunks
-// export const getMovies = (title: string) => (dispatch:Dispatch) : void=> {
-//
-//     moviesAPI.getMoviesTitle(title)
-//         .then((res) => {
-//             // console.log("xxx")
-//             // let movies = res.data.data
-//             console.log("dddd")
-//             // let movies = data.Search
-//             // dispatch(moviesActions.setMovies(movies))
-//         })
-// }
-
-export const getMovies = (title: string) => (dispatch:Dispatch)=> {
+export const getMovies = (title: string): AppThunk => (dispatch: Dispatch) => {
     debugger
     moviesAPI.getMoviesTitle(title)
-        .then((res)=> {
-            let movies = res.data.Search
+        .then((data)=> {
+            let movies = data.data.Search
+            let response = data.data.Response
+            let totalResults = data.data.setTotalResults
             dispatch(moviesActions.setMovies(movies))
+            dispatch(moviesActions.setResponse(response))
+            dispatch(moviesActions.setTotalResults(totalResults))
         })
 }
 
 export type MoviesActionTypes = ReturnType<typeof moviesActions.setMovies>
+| ReturnType<typeof moviesActions.setTotalResults> | ReturnType<typeof moviesActions.setResponse>
 
 
 
