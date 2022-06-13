@@ -24,26 +24,28 @@ export const moviesReducer = (state: MoviesInitialStateType = moviesInitialState
 
 export const moviesActions = {
     setMovies: (movies: MoviesType[]) => ({type: 'SET_MOVIES', payload: {movies}} as const),
-    setTotalResults: (totalResults: string) =>
-        ({type: 'SET_TOTAL_RESULT', payload: {totalResults}} as const),
-    setResponse: (response: string) => ({type: 'SET_RESPONSE', payload: {response}} as const),
+    // setTotalResults: (totalResults: string) =>
+    //     ({type: 'SET_TOTAL_RESULT', payload: {totalResults}} as const),
+    // setResponse: (response: string) => ({type: 'SET_RESPONSE', payload: {response}} as const),
 }
 
-export const getMovies = (title: string): AppThunk => (dispatch: Dispatch) => {
-    debugger
-    moviesAPI.getMoviesTitle(title)
-        .then((data)=> {
-            let movies = data.data.Search
-            let response = data.data.Response
-            let totalResults = data.data.setTotalResults
-            dispatch(moviesActions.setMovies(movies))
-            dispatch(moviesActions.setResponse(response))
-            dispatch(moviesActions.setTotalResults(totalResults))
-        })
+export const getMovies = (title: string): AppThunk => {
+    return (dispatch) => {
+        moviesAPI.getMoviesTitle(title)
+            .then((data)=> {
+                console.log("ddd")
+                // let movies = data.data.Search
+                // let response = data.data.Response
+                // let totalResults = data.data.setTotalResults
+                // dispatch(moviesActions.setMovies(movies))
+                // dispatch(moviesActions.setResponse(response))
+                // dispatch(moviesActions.setTotalResults(totalResults))
+            })
+    }
 }
 
 export type MoviesActionTypes = ReturnType<typeof moviesActions.setMovies>
-| ReturnType<typeof moviesActions.setTotalResults> | ReturnType<typeof moviesActions.setResponse>
+// | ReturnType<typeof moviesActions.setTotalResults> | ReturnType<typeof moviesActions.setResponse>
 
 
 
